@@ -1,33 +1,37 @@
 var webpackConfig = require('./webpack.config');
 
 module.exports = function(config) {
-    config.set({
-        basePath: '',
-        frameworks: ['jasmine'],
-        files: ['test/*-spec.js', 'test/**/*-spec.js'],
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine'],
+    files: ['src/*[sS]pec.js', 'src/**/*[sS]pec.js'],
 
-        preprocessors: {
-            'test/*-spec.js': ['webpack'],
-            'test/**/*-spec.js': ['webpack']
-        },
+    preprocessors: {
+      'src/*[sS]pec.js': ['webpack'],
+      'src/**/*[sS]pec.js': ['webpack']
+    },
 
-        webpack: webpackConfig,
-        port: 9876,
-        colors: true,
-        autoWatch: true,
-        reporters: ['mocha'],
-        browsers: ['PhantomJS'],
+    webpack: webpackConfig,
+    port: 9876,
+    colors: true,
+    autoWatch: true,
+    reporters: ['spec'],
+    browsers: ['PhantomJS'],
 
-        webpackMiddleware: {
-            noInfo: true,
-            stats: 'errors-only'
-        },
+    specReporter: {
+      suppressErrorSummary: true
+    },
 
-        plugins: [
-            require("karma-webpack"),
-            'karma-jasmine',
-            'karma-phantomjs-launcher',
-            'karma-mocha-reporter'
-        ]
-    });
+    webpackMiddleware: {
+      noInfo: true,
+      stats: 'errors-only'
+    },
+
+    plugins: [
+      require("karma-webpack"),
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-spec-reporter'
+    ]
+  });
 };
